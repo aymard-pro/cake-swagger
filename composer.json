@@ -1,17 +1,17 @@
 {
-  "name": "aymard-pro/cake-swagger",
+  "name": "taciclei/cake-swagger",
   "description": "Swagger plugin for CakePHP v3",
   "type": "cakephp-plugin",
   "license": "MIT",
   "authors": [
     {
-      "name": "AYMARD KOUAKOU",
-      "email": "aymard.pro@gmail.com"
+      "name": "taciclei",
+      "email": "souza@taciclei.com"
     }
   ],
   "require": {
     "php": ">=5.5",
-    "cakephp/cakephp": "3.4.*",
+    "cakephp/cakephp": "3.*",
     "zircote/swagger-php": "^2.0"
   },
   "require-dev": {
