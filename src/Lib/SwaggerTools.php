@@ -24,8 +24,10 @@ class SwaggerTools
      */
     public static function getSwaggerDocument($id, $host)
     {
+
         // load document from filesystem
         $filePath = CACHE . self::$filePrefix . $id . '.json';
+
         if (!Configure::read('CakeSwagger.docs.crawl')) {
             if (!file_exists($filePath)) {
                 throw new NotFoundException("Swagger json document was not found on filesystem: $filePath");
@@ -35,21 +37,17 @@ class SwaggerTools
         }
         // otherwise crawl-generate a fresh document
         $swaggerOptions = [];
-        if (Configure::read("CakeSwagger.library.$id.exclude")) {
-            $swaggerOptions = [
-                'exclude' => Configure::read("CakeSwagger.library.$id.exclude")
-            ];
+        if (Configure::read("CakeSwagger.library.$id")) {
+            $swaggerOptions = Configure::read("CakeSwagger.library.$id");
         }
-        if (Configure::read('CakeSwagger.analyser')) {
-            $swaggerOptions['analyser'] = Configure::read('CakeSwagger.analyser');
-        }
-        $swagger = \Swagger\scan(Configure::read("CakeSwagger.library.$id.include"), $swaggerOptions);
+
+        $swagger = \OpenApi\scan(Configure::read("CakeSwagger.library.$id.include"), $swaggerOptions);
         // set object properties required by UI to generate the BASE URL
         $swagger->host = $host;
         if (empty($swagger->basePath)) {
             $swagger->basePath = '/' . Configure::read('App.base');
         }
-        $swagger->schemes = Configure::read('CakeSwagger.ui.schemes');
+        $swagger->schemes = Configure::read('Swagger.ui.schemes');
         // write document to filesystem
         self::writeSwaggerDocumentToFile($filePath, $swagger);
         return $swagger;
@@ -65,7 +63,7 @@ class SwaggerTools
     protected static function writeSwaggerDocumentToFile($path, $content)
     {
         $fh = new File($path, true);
-        if (!$fh->write($content)) {
+        if (!$fh->write(json_encode($content), 'w', true)) {
             throw new InternalErrorException('Error writing Swagger json document to filesystem');
         }
         return true;

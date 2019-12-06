@@ -38,8 +38,8 @@ class SwaggerShell extends Shell
     public function makedocs($host)
     {
         // make same configuration as used by the API availble inside the lib
-        if (Configure::read('Swagger')) {
-            $this->config = Hash::merge(AppController::$defaultConfig, Configure::read('Swagger'));
+        if (Configure::read('CakeSwagger')) {
+            $this->config = Hash::merge(AppController::$defaultConfig, Configure::read('CakeSwagger'));
         }
         $this->out('Crawl-generating swagger documents...');
         SwaggerTools::makeDocs($host);
