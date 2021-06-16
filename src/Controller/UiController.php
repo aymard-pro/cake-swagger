@@ -13,7 +13,7 @@ use Cake\Event\Event;
 use Cake\Routing\Router;
 use CakeSwagger\Controller\AppController;
 use function compact;
-use Swagger\Annotations\Swagger;
+use OpenApi\Annotations\OpenApi;
 
 class UiController extends AppController
 {
@@ -69,7 +69,12 @@ class UiController extends AppController
 	 */
 	public function json()
 	{
-		echo $this->_scan();
+        error_reporting(0);
+        $reponse = $this->response;
+        $reponse->body(json_encode($this->_scan()));
+        $reponse->withType('application/json');
+        
+		return $reponse;
 	}
 	
 	/**
@@ -78,9 +83,9 @@ class UiController extends AppController
 	 * @return Swagger
 	 * @throws \CakeSwagger\Exception\CakeSwaggerException
 	 */
-	private function _scan(): Swagger
+	private function _scan(): OpenApi
 	{
-		return \Swagger\scan($this->config['directory'], $this->options);
+		return \OpenApi\scan($this->config['directory'], $this->options);
 	}
 	
 }

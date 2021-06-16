@@ -9,7 +9,7 @@ use Cake\Core\Configure;
 	<title><?= Configure::read('CakeSwagger.ui.title') ?></title>
 	<?= $this->Html->css([
 		'https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700',
-		'CakeSwagger./assets/swagger-ui.css'
+		'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.23.11/swagger-ui.css'
 	]) ?>
 	<?= $this->Html->meta(
 		'favicon.ico',
@@ -47,8 +47,8 @@ use Cake\Core\Configure;
 <?= $this->element('CakeSwagger.loader') ?>
 <?= $this->fetch('content') ?>
 <?= $this->Html->script([
-	'CakeSwagger./assets/swagger-ui-bundle.js',
-	'CakeSwagger./assets/swagger-ui-standalone-preset.js'
+	'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.23.11/swagger-ui-bundle.js',
+	'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.23.11/swagger-ui-standalone-preset.js'
 ]) ?>
 <?= $this->fetch('script') ?>
 </body>
